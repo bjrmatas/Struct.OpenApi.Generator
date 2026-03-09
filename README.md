@@ -25,9 +25,11 @@ src/
 │   │   └── Client.cs                 # HTTP client for Struct API
 │   └── Struct.csproj
 └── Generator/
-    ├── Commands/GenerateCommand.cs   # CLI generate command
+    ├── Commands/
+    │   ├── GenerateCommand.cs        # CLI generate command
+    │   └── GenerateExampleCommand.cs # CLI example command
     ├── Services/ConfigurationService.cs
-    └── Struct.OpenApi.Generator.csproj
+    └── Struct.OpenApiGenerator.csproj
 ```
 
 ## Configuration
@@ -45,16 +47,39 @@ Create `appsettings.json` in the Generator project directory:
 
 ```bash
 cd src/Generator
+dotnet run -- <command>
+```
+
+## Commands
+
+### generate
+
+Generates OpenAPI schemas from product structures.
+
+```bash
 dotnet run -- generate
 ```
 
-## Options
-
+Options:
 - `--output <path>` - Output file path (default: `openapi-{timestamp}.json`)
 
-## Example Output
+### example
 
-The generator produces an OpenAPI 3.0 document with schemas like:
+Generates example JSON with dummy data for a product or variant.
+
+```bash
+dotnet run -- example product
+dotnet run -- example variant
+```
+
+Options:
+- `--output <path>` - Output file path (default: `example-{type}-{timestamp}.json`)
+
+The example command fetches dimensions and languages from the API and generates dummy data for all segments.
+
+## Schema Structure
+
+The `generate` command produces an OpenAPI 3.0 document where each schema is wrapped in a Product object:
 
 ```json
 {
@@ -68,22 +93,71 @@ The generator produces an OpenAPI 3.0 document with schemas like:
       "NonFood": {
         "type": "object",
         "properties": {
-          "ProductName": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "CultureCode": { "type": "string" },
-                "Value": { "type": "string" }
+          "ProductId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Values": {
+            "type": "object",
+            "properties": {
+              "ProductName": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": { "type": "string" },
+                    "Value": { "type": "string" }
+                  }
+                }
+              },
+              "Price": {
+                "type": "number"
               }
             }
           },
-          "Price": {
-            "type": "number"
+          "Variant": {
+            "type": "object",
+            "properties": {
+              "Values": {
+                "type": "object",
+                "properties": {
+                  "VariantName": { "type": "string" }
+                }
+              }
+            }
           }
         }
       }
     }
+  }
+}
+```
+
+## Example Output
+
+The `example` command produces JSON with dummy data:
+
+```json
+{
+  "ProductId": 1,
+  "Values": {
+    "ProductName": [
+      {
+        "CultureCode": "en-US",
+        "Value": "Sample text"
+      }
+    ],
+    "Price": 42.5,
+    "StoreData": [
+      {
+        "Segment": "store1",
+        "Value": "Sample text"
+      },
+      {
+        "Segment": "kicks",
+        "Value": "Sample text"
+      }
+    ]
   }
 }
 ```

@@ -73,24 +73,31 @@ public class GenerateCommand : AsyncCommand<GenerateCommand.Settings>
                 .Spinner(Spinner.Known.Star)
                 .StartAsync($"Loading {structure.Alias}...", async ctx => await client.GetProductStructureAsync(structure.Uid));
 
-            var attributeUids = OpenApiService.ExtractAttributeUids(fullStructure);
-            console.MarkupLine($"  Found [cyan]{attributeUids.Count}[/] attributes");
+            var (productAttributeUids, variantAttributeUids) = OpenApiService.ExtractAttributeUids(fullStructure);
+            console.MarkupLine($"  Found [cyan]{productAttributeUids.Count}[/] product attributes");
+            console.MarkupLine($"  Found [cyan]{variantAttributeUids.Count}[/] variant attributes");
 
-            var attributes = await AnsiConsole
+            var productAttributes = await AnsiConsole
                 .Status()
                 .Spinner(Spinner.Known.Star)
-                .StartAsync("Loading attributes...", async _ => await client.GetAttributesBatchAsync(attributeUids));
+                .StartAsync("Loading product attributes...", async _ => await client.GetAttributesBatchAsync(productAttributeUids));
 
-            console.MarkupLine($"  [green]Successfully loaded {attributes.Count} attributes[/]");
+            var variantAttributes = await AnsiConsole
+                .Status()
+                .Spinner(Spinner.Known.Star)
+                .StartAsync("Loading variant attributes...", async _ => await client.GetAttributesBatchAsync(variantAttributeUids));
 
-            var schema = OpenApiService.GenerateSchema(attributes);
+            console.MarkupLine($"  [green]Successfully loaded {productAttributes.Count} product attributes[/]");
+            console.MarkupLine($"  [green]Successfully loaded {variantAttributes.Count} variant attributes[/]");
+
+            var schema = OpenApiService.GenerateSchema(productAttributes, variantAttributes);
 
             openApiDoc.Components ??= new OpenApiComponents();
 
             openApiDoc.Components.Schemas[fullStructure.Alias] = schema;
         }
 
-        var outputPath = settings.OutputPath ?? $"openapi-{DateTime.Now:yyyyMMddHHmmss}.json";
+        var outputPath = settings.OutputPath ?? $"openapi.json";
         var json = JsonSerializer.Serialize(openApiDoc, JsonSerializerOptions);
 
         await File.WriteAllTextAsync(outputPath, json, cancellationToken);

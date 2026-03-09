@@ -47,6 +47,24 @@ public sealed class StructClient(HttpClient httpClient, string baseUrl)
         return JsonSerializer.Deserialize<List<AttributeInfo>>(responseContent) ?? [];
     }
 
+    public async Task<List<Dimension>> GetDimensionsAsync(CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.GetAsync($"{baseUrl}/v1/dimensions", cancellationToken);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync(cancellationToken);
+        return JsonSerializer.Deserialize<List<Dimension>>(content) ?? [];
+    }
+
+    public async Task<List<Language>> GetLanguagesAsync(CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.GetAsync($"{baseUrl}/v1/languages", cancellationToken);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync(cancellationToken);
+        return JsonSerializer.Deserialize<List<Language>>(content) ?? [];
+    }
+
     public static StructClient Create(ClientOptions options)
     {
         var baseUrl = options.Url.TrimEnd('/');

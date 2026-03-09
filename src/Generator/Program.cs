@@ -11,6 +11,7 @@ var app = new CommandApp();
 app.Configure(config =>
 {
     config.AddCommand<GenerateCommand>("generate");
+    config.AddCommand<GenerateExampleCommand>("example");
 });
 
 await app.RunAsync(args);

@@ -27,10 +27,11 @@ public static class OpenApiService
     /// Extracts all unique attribute UIDs from a product structure's tabs and sections.
     /// </summary>
     /// <param name="structure">The product structure to extract attribute UIDs from.</param>
-    /// <returns>A list of unique attribute UIDs.</returns>
-    public static List<string> ExtractAttributeUids(ProductStructure structure)
+    /// <returns>A tuple of two lists: product attribute UIDs and variant attribute UIDs.</returns>
+    public static (List<string> ProductAttributes, List<string> VariantAttributes) ExtractAttributeUids(ProductStructure structure)
     {
-        var uids = new HashSet<string>();
+        var productUids = new HashSet<string>();
+        var variantUids = new HashSet<string>();
 
         if (structure.ProductConfiguration?.Tabs != null)
         {
@@ -44,7 +45,7 @@ public static class OpenApiService
                     {
                         if (!string.IsNullOrEmpty(prop.AttributeUid))
                         {
-                            uids.Add(prop.AttributeUid);
+                            productUids.Add(prop.AttributeUid);
                         }
                     }
                 }
@@ -63,35 +64,73 @@ public static class OpenApiService
                     {
                         if (!string.IsNullOrEmpty(prop.AttributeUid))
                         {
-                            uids.Add(prop.AttributeUid);
+                            variantUids.Add(prop.AttributeUid);
                         }
                     }
                 }
             }
         }
 
-        return [.. uids];
+        return ([.. productUids], [.. variantUids]);
     }
 
     /// <summary>
-    /// Generates an OpenAPI schema from a list of attributes.
+    /// Generates an OpenAPI schema from product and variant attributes wrapped in a default Product object.
     /// </summary>
-    /// <param name="attributes">The list of attributes to generate the schema from.</param>
-    /// <returns>An OpenApiSchema representing the attributes as object properties.</returns>
-    public static OpenApiSchema GenerateSchema(List<AttributeInfo> attributes)
+    /// <param name="productAttributes">The list of product attributes.</param>
+    /// <param name="variantAttributes">The list of variant attributes.</param>
+    /// <returns>An OpenApiSchema representing a Product object with Values, ProductId, and Variant.</returns>
+    public static OpenApiSchema GenerateSchema(List<AttributeInfo> productAttributes, List<AttributeInfo> variantAttributes)
     {
-        var properties = new Dictionary<string, OpenApiSchema>();
+        var valueProperties = new Dictionary<string, OpenApiSchema>();
 
-        foreach (var attr in attributes)
+        foreach (var attr in productAttributes)
         {
             var attrSchema = ConvertAttributeToSchema(attr);
-            properties[attr.Alias] = attrSchema;
+            valueProperties[attr.Alias] = attrSchema;
         }
+
+        var valuesSchema = new OpenApiSchema
+        {
+            Type = "object",
+            Properties = valueProperties
+        };
+
+        var variantValueProperties = new Dictionary<string, OpenApiSchema>();
+
+        foreach (var attr in variantAttributes)
+        {
+            var attrSchema = ConvertAttributeToSchema(attr);
+            variantValueProperties[attr.Alias] = attrSchema;
+        }
+
+        var variantValuesSchema = new OpenApiSchema
+        {
+            Type = "object",
+            Properties = variantValueProperties
+        };
+
+        var variantSchema = new OpenApiSchema
+        {
+            Type = "object",
+            Properties = new Dictionary<string, OpenApiSchema>
+            {
+                ["VariantId"] = new OpenApiSchema { Type = "integer", Format = "int32" },
+                ["Values"] = variantValuesSchema
+            }
+        };
+
+        var productProperties = new Dictionary<string, OpenApiSchema>
+        {
+            ["ProductId"] = new OpenApiSchema { Type = "integer", Format = "int32" },
+            ["Values"] = valuesSchema,
+            ["Variant"] = variantSchema
+        };
 
         return new OpenApiSchema
         {
             Type = "object",
-            Properties = properties
+            Properties = productProperties
         };
     }
 
