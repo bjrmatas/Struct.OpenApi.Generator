@@ -34,7 +34,7 @@ src/
 
 ## Configuration
 
-Create `appsettings.json` in the Generator project directory:
+Create `appsettings.json` in `src/Generator`:
 
 ```json
 {
@@ -43,12 +43,23 @@ Create `appsettings.json` in the Generator project directory:
 }
 ```
 
+`appsettings.json` is copied to the output directory during build and publish, and configuration is loaded using `AppContext.BaseDirectory`. This means the tool can be launched from any working directory.
+
 ## Running
 
 ```bash
-cd src/Generator
-dotnet run -- <command>
+dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- <command>
 ```
+
+You can still run from inside `src/Generator` if preferred.
+
+## Publish
+
+```bash
+dotnet publish Struct.OpenApi.Generator.sln
+```
+
+The published output includes `appsettings.json`, so the executable has the required configuration file next to it.
 
 ## Commands
 
@@ -61,7 +72,7 @@ dotnet run -- generate
 ```
 
 Options:
-- `--output <path>` - Output file path (default: `openapi-{timestamp}.json`)
+- `--output <path>` - Output file path (default: `openapi.json`)
 
 ### example
 
@@ -73,7 +84,7 @@ dotnet run -- example variant
 ```
 
 Options:
-- `--output <path>` - Output file path (default: `example-{type}-{timestamp}.json`)
+- `--output <path>` - Output file path (default: `example-{type}.json`)
 
 The example command fetches dimensions and languages from the API and generates dummy data for all segments.
 
