@@ -11,7 +11,7 @@ public static class AttributeSchemaGeneratorFactory
         ["numberattribute"] = () => new PrimitiveAttributeSchemaGenerator("number", null, () => 42.5),
         ["booleanattribute"] = () => new PrimitiveAttributeSchemaGenerator("boolean", null, () => true),
         ["datetimeattribute"] = () => new PrimitiveAttributeSchemaGenerator("string", "date-time", () => "2024-01-15T10:30:00Z"),
-        ["assetreferenceattribute"] = () => new PrimitiveAttributeSchemaGenerator("string", null, () => "/assets/example.jpg"),
+        ["assetreferenceattribute"] = () => new PrimitiveAttributeSchemaGenerator("integer", "int32", () => 1),
         ["categoryreferenceattribute"] = () => new PrimitiveAttributeSchemaGenerator("integer", "int32", () => 1),
         ["productreferenceattribute"] = () => new PrimitiveAttributeSchemaGenerator("integer", "int32", () => 1),
         ["variantreferenceattribute"] = () => new PrimitiveAttributeSchemaGenerator("integer", "int32", () => 1),
