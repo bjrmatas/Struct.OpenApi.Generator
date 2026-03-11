@@ -1,0 +1,483 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Struct API",
+    "version": "1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "ProductWithGlobalListReference": {
+        "type": "object",
+        "properties": {
+          "ProductId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Values": {
+            "type": "object",
+            "properties": {
+              "ReadyForWeb": {
+                "type": "boolean",
+                "description": "Ready for web",
+                "nullable": false
+              },
+              "Usage": {
+                "description": "Usage",
+                "$ref": "#/components/schemas/Usage",
+                "nullable": true
+              },
+              "WebBrand": {
+                "description": "Web brand",
+                "$ref": "#/components/schemas/WebBrand",
+                "nullable": true
+              }
+            },
+            "required": [
+              "ReadyForWeb"
+            ]
+          },
+          "Variant": {
+            "type": "object",
+            "properties": {
+              "VariantId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "Values": {
+                "type": "object",
+                "properties": {
+                  "Age": {
+                    "description": "Age",
+                    "$ref": "#/components/schemas/Age",
+                    "nullable": false
+                  },
+                  "AgeChilden": {
+                    "description": "AgeChilden",
+                    "$ref": "#/components/schemas/AgeChildren",
+                    "nullable": false
+                  },
+                  "HideFromPDP": {
+                    "type": "boolean",
+                    "description": "Supplier hide from PDP",
+                    "nullable": true
+                  },
+                  "HighlightsConscious": {
+                    "description": "Highlights conscious",
+                    "$ref": "#/components/schemas/HighlightsConscious",
+                    "nullable": true
+                  },
+                  "HighlightsConsciousCustom": {
+                    "description": "Highlights conscious custom",
+                    "$ref": "#/components/schemas/HighlightsConscious",
+                    "nullable": true
+                  },
+                  "ReadyForWeb": {
+                    "type": "boolean",
+                    "description": "Ready for web",
+                    "nullable": false
+                  },
+                  "TipType": {
+                    "description": "Tip type",
+                    "$ref": "#/components/schemas/TipType",
+                    "nullable": true
+                  },
+                  "Usage": {
+                    "description": "Usage",
+                    "$ref": "#/components/schemas/Usage",
+                    "nullable": true
+                  },
+                  "WebBrand": {
+                    "description": "Web brand",
+                    "$ref": "#/components/schemas/WebBrand",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "Age",
+                  "AgeChilden",
+                  "ReadyForWeb"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "ProductWithGlobalListValue": {
+        "type": "object",
+        "properties": {
+          "ProductId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Values": {
+            "type": "object",
+            "properties": {
+              "ReadyForWeb": {
+                "type": "boolean",
+                "description": "Ready for web",
+                "nullable": false
+              },
+              "Usage": {
+                "description": "Usage",
+                "$ref": "#/components/schemas/Usage",
+                "nullable": true
+              },
+              "WebBrand": {
+                "description": "Web brand",
+                "$ref": "#/components/schemas/WebBrand",
+                "nullable": true
+              }
+            },
+            "required": [
+              "ReadyForWeb"
+            ]
+          },
+          "Variant": {
+            "type": "object",
+            "properties": {
+              "VariantId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "Values": {
+                "type": "object",
+                "properties": {
+                  "Age": {
+                    "description": "Age",
+                    "$ref": "#/components/schemas/Age",
+                    "nullable": false
+                  },
+                  "AgeChilden": {
+                    "description": "AgeChilden",
+                    "$ref": "#/components/schemas/AgeChildren",
+                    "nullable": false
+                  },
+                  "HideFromPDP": {
+                    "type": "boolean",
+                    "description": "Supplier hide from PDP",
+                    "nullable": true
+                  },
+                  "HighlightsConscious": {
+                    "description": "Highlights conscious",
+                    "$ref": "#/components/schemas/HighlightsConscious",
+                    "nullable": true
+                  },
+                  "HighlightsConsciousCustom": {
+                    "description": "Highlights conscious custom",
+                    "$ref": "#/components/schemas/HighlightsConscious",
+                    "nullable": true
+                  },
+                  "ReadyForWeb": {
+                    "type": "boolean",
+                    "description": "Ready for web",
+                    "nullable": false
+                  },
+                  "TipType": {
+                    "description": "Tip type",
+                    "$ref": "#/components/schemas/TipType",
+                    "nullable": true
+                  },
+                  "Usage": {
+                    "description": "Usage",
+                    "$ref": "#/components/schemas/Usage",
+                    "nullable": true
+                  },
+                  "WebBrand": {
+                    "description": "Web brand",
+                    "$ref": "#/components/schemas/WebBrand",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "Age",
+                  "AgeChilden",
+                  "ReadyForWeb"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "VariantWithGlobalListReference": {
+        "type": "object",
+        "properties": {
+          "VariantId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Values": {
+            "type": "object",
+            "properties": {
+              "Age": {
+                "description": "Age",
+                "$ref": "#/components/schemas/Age",
+                "nullable": false
+              },
+              "AgeChilden": {
+                "description": "AgeChilden",
+                "$ref": "#/components/schemas/AgeChildren",
+                "nullable": false
+              },
+              "HideFromPDP": {
+                "type": "boolean",
+                "description": "Supplier hide from PDP",
+                "nullable": true
+              },
+              "HighlightsConscious": {
+                "description": "Highlights conscious",
+                "$ref": "#/components/schemas/HighlightsConscious",
+                "nullable": true
+              },
+              "HighlightsConsciousCustom": {
+                "description": "Highlights conscious custom",
+                "$ref": "#/components/schemas/HighlightsConscious",
+                "nullable": true
+              },
+              "ReadyForWeb": {
+                "type": "boolean",
+                "description": "Ready for web",
+                "nullable": false
+              },
+              "TipType": {
+                "description": "Tip type",
+                "$ref": "#/components/schemas/TipType",
+                "nullable": true
+              },
+              "Usage": {
+                "description": "Usage",
+                "$ref": "#/components/schemas/Usage",
+                "nullable": true
+              },
+              "WebBrand": {
+                "description": "Web brand",
+                "$ref": "#/components/schemas/WebBrand",
+                "nullable": true
+              }
+            },
+            "required": [
+              "Age",
+              "AgeChilden",
+              "ReadyForWeb"
+            ]
+          }
+        }
+      },
+      "VariantWithGlobalListValue": {
+        "type": "object",
+        "properties": {
+          "VariantId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Values": {
+            "type": "object",
+            "properties": {
+              "Age": {
+                "description": "Age",
+                "$ref": "#/components/schemas/Age",
+                "nullable": false
+              },
+              "AgeChilden": {
+                "description": "AgeChilden",
+                "$ref": "#/components/schemas/AgeChildren",
+                "nullable": false
+              },
+              "HideFromPDP": {
+                "type": "boolean",
+                "description": "Supplier hide from PDP",
+                "nullable": true
+              },
+              "HighlightsConscious": {
+                "description": "Highlights conscious",
+                "$ref": "#/components/schemas/HighlightsConscious",
+                "nullable": true
+              },
+              "HighlightsConsciousCustom": {
+                "description": "Highlights conscious custom",
+                "$ref": "#/components/schemas/HighlightsConscious",
+                "nullable": true
+              },
+              "ReadyForWeb": {
+                "type": "boolean",
+                "description": "Ready for web",
+                "nullable": false
+              },
+              "TipType": {
+                "description": "Tip type",
+                "$ref": "#/components/schemas/TipType",
+                "nullable": true
+              },
+              "Usage": {
+                "description": "Usage",
+                "$ref": "#/components/schemas/Usage",
+                "nullable": true
+              },
+              "WebBrand": {
+                "description": "Web brand",
+                "$ref": "#/components/schemas/WebBrand",
+                "nullable": true
+              }
+            },
+            "required": [
+              "Age",
+              "AgeChilden",
+              "ReadyForWeb"
+            ]
+          }
+        }
+      },
+      "Usage": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string",
+            "description": "Title",
+            "nullable": true
+          },
+          "Text": {
+            "type": "array",
+            "description": "Text",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CultureCode": {
+                  "type": "string"
+                },
+                "Data": {
+                  "type": "string"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      },
+      "WebBrand": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "number",
+            "description": "Key",
+            "nullable": true
+          },
+          "Text": {
+            "type": "array",
+            "description": "Text",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CultureCode": {
+                  "type": "string"
+                },
+                "Data": {
+                  "type": "string"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      },
+      "Age": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string",
+            "description": "Key",
+            "nullable": true
+          },
+          "Value": {
+            "type": "array",
+            "description": "Value",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CultureCode": {
+                  "type": "string"
+                },
+                "Data": {
+                  "type": "string"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      },
+      "AgeChildren": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string",
+            "description": "Key",
+            "nullable": true
+          },
+          "Value": {
+            "type": "array",
+            "description": "Value",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CultureCode": {
+                  "type": "string"
+                },
+                "Data": {
+                  "type": "string"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      },
+      "HighlightsConscious": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string",
+            "description": "Title",
+            "nullable": true
+          },
+          "Value": {
+            "type": "array",
+            "description": "Value",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CultureCode": {
+                  "type": "string"
+                },
+                "Data": {
+                  "type": "string"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      },
+      "TipType": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "array",
+            "description": "Value",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CultureCode": {
+                  "type": "string"
+                },
+                "Data": {
+                  "type": "string"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      }
+    }
+  }
+}

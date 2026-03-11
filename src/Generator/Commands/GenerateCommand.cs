@@ -3,8 +3,8 @@ using System.Text.Json.Serialization;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Struct.Api;
-using Struct.OpenApi.Generator.Models;
 using Struct.OpenApi.Generator.Services;
+using Struct.Api.Models;
 
 namespace Struct.OpenApi.Generator.Commands;
 
@@ -48,54 +48,44 @@ public class GenerateCommand : AsyncCommand<GenerateCommand.Settings>
         console.MarkupLine($"[green]Found {structures.Count} product structure(s)[/]");
         console.WriteLine();
 
-        var selectedStructures = AnsiConsole.Prompt(
-            new MultiSelectionPrompt<string>()
+        var selectedStructure = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
                 .Title("Select product structures to generate:")
-                .PageSize(10)
-                .MoreChoicesText("[grey](Move up and down to select, press space to toggle)[/]")
-                .InstructionsText("[grey](Press Enter to generate)[/]")
+                .MoreChoicesText("[grey](Move up and down to select, press space to select)[/]")
                 .AddChoices(structures.Select(s => $"{s.Alias} ({s.Label})")));
 
         console.WriteLine();
-        console.MarkupLine($"[green]Selected {selectedStructures.Count} product structure(s)[/]");
+        console.MarkupLine($"[green]Selected {selectedStructure} product structure(s)[/]");
 
-        var openApiDoc = OpenApiService.CreateOpenApiDocument();
+        var structure = structures.First(s => $"{s.Alias} ({s.Label})" == selectedStructure);
 
-        foreach (var selected in selectedStructures)
-        {
-            var structure = structures.First(s => $"{s.Alias} ({s.Label})" == selected);
+        console.WriteLine();
+        console.MarkupLine($"[bold]Processing:[/] {structure.Alias}");
 
-            console.WriteLine();
-            console.MarkupLine($"[bold]Processing:[/] {structure.Alias}");
+        var fullStructure = await AnsiConsole
+            .Status()
+            .Spinner(Spinner.Known.Star)
+            .StartAsync($"Loading {structure.Alias}...", async ctx => await client.GetProductStructureAsync(structure.Uid));
 
-            var fullStructure = await AnsiConsole
-                .Status()
-                .Spinner(Spinner.Known.Star)
-                .StartAsync($"Loading {structure.Alias}...", async ctx => await client.GetProductStructureAsync(structure.Uid));
+        var (productAttributeUids, variantAttributeUids) = fullStructure.ExtractAttributeUids();
+        console.MarkupLine($"  Found [cyan]{productAttributeUids.Count}[/] product attributes");
+        console.MarkupLine($"  Found [cyan]{variantAttributeUids.Count}[/] variant attributes");
 
-            var (productAttributeUids, variantAttributeUids) = OpenApiService.ExtractAttributeUids(fullStructure);
-            console.MarkupLine($"  Found [cyan]{productAttributeUids.Count}[/] product attributes");
-            console.MarkupLine($"  Found [cyan]{variantAttributeUids.Count}[/] variant attributes");
+        var productAttributes = await AnsiConsole
+            .Status()
+            .Spinner(Spinner.Known.Star)
+            .StartAsync("Loading product attributes...", async _ => await client.GetAttributesBatchAsync(productAttributeUids));
 
-            var productAttributes = await AnsiConsole
-                .Status()
-                .Spinner(Spinner.Known.Star)
-                .StartAsync("Loading product attributes...", async _ => await client.GetAttributesBatchAsync(productAttributeUids));
+        var variantAttributes = await AnsiConsole
+            .Status()
+            .Spinner(Spinner.Known.Star)
+            .StartAsync("Loading variant attributes...", async _ => await client.GetAttributesBatchAsync(variantAttributeUids));
 
-            var variantAttributes = await AnsiConsole
-                .Status()
-                .Spinner(Spinner.Known.Star)
-                .StartAsync("Loading variant attributes...", async _ => await client.GetAttributesBatchAsync(variantAttributeUids));
+        console.MarkupLine($"  [green]Successfully loaded {productAttributes.Count} product attributes[/]");
+        console.MarkupLine($"  [green]Successfully loaded {variantAttributes.Count} variant attributes[/]");
 
-            console.MarkupLine($"  [green]Successfully loaded {productAttributes.Count} product attributes[/]");
-            console.MarkupLine($"  [green]Successfully loaded {variantAttributes.Count} variant attributes[/]");
+        var openApiDoc = OpenApiService.CreateOpenApiDocument(productAttributes, variantAttributes);
 
-            var schema = OpenApiService.GenerateSchema(productAttributes, variantAttributes);
-
-            openApiDoc.Components ??= new OpenApiComponents();
-
-            openApiDoc.Components.Schemas[fullStructure.Alias] = schema;
-        }
 
         var outputPath = settings.OutputPath ?? $"openapi.json";
         var json = JsonSerializer.Serialize(openApiDoc, JsonSerializerOptions);

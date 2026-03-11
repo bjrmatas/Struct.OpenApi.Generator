@@ -6,6 +6,10 @@ namespace Struct.Api;
 
 public sealed class StructClient(HttpClient httpClient, string baseUrl)
 {
+    private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web)
+    {
+        PropertyNameCaseInsensitive = true
+    };
     public async Task<List<ProductStructureSummary>> GetProductStructuresAsync(CancellationToken cancellationToken = default)
     {
         var response = await httpClient.GetAsync($"{baseUrl}/v1/productstructures", cancellationToken);
@@ -31,7 +35,7 @@ public sealed class StructClient(HttpClient httpClient, string baseUrl)
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync(cancellationToken);
-        return JsonSerializer.Deserialize<AttributeInfo>(content)
+        return JsonSerializer.Deserialize<AttributeInfo>(content, SerializerOptions)
             ?? throw new InvalidOperationException("Failed to deserialize attribute");
     }
 
@@ -44,7 +48,8 @@ public sealed class StructClient(HttpClient httpClient, string baseUrl)
         response.EnsureSuccessStatusCode();
 
         var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
-        return JsonSerializer.Deserialize<List<AttributeInfo>>(responseContent) ?? [];
+        return JsonSerializer.Deserialize<List<AttributeInfo>>(responseContent, SerializerOptions)
+            ?? [];
     }
 
     public async Task<List<Dimension>> GetDimensionsAsync(CancellationToken cancellationToken = default)

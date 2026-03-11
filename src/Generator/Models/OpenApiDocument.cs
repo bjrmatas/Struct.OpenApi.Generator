@@ -50,6 +50,15 @@ public class OpenApiSchema
     [JsonPropertyName("properties")]
     public Dictionary<string, OpenApiSchema>? Properties { get; set; }
 
+    [JsonPropertyName("required")]
+    public List<string>? Required { get; set; }
+
     [JsonPropertyName("items")]
     public OpenApiSchema? Items { get; set; }
+
+    [JsonPropertyName("$ref")]
+    public string? Ref { get; set; }
+
+    [JsonPropertyName("nullable")]
+    public bool? Nullable { get; set; }
 }

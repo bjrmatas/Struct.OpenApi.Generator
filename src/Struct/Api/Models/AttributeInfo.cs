@@ -1,14 +1,24 @@
+using System.Text.Json.Serialization;
+
 namespace Struct.Api.Models;
 
-public sealed record AttributeInfo(
-    string Uid,
-    string Alias,
-    string? BackofficeName,
-    Dictionary<string, string>? Name,
-    Dictionary<string, string>? Description,
-    bool Localized,
-    string? AttributeType,
-    string? DimensionUid,
-    List<AttributeDimension>? Dimensions);
-
-public sealed record AttributeDimension(string Uid, string Alias, string Name, string? CultureCode, string? Segment);
+[JsonConverter(typeof(AttributeInfoJsonConverter))]
+public abstract class AttributeInfo : IAttributeInfo
+{
+    public string Uid { get; set; } = "";
+    public string Alias { get; set; } = "";
+    public string? BackofficeName { get; set; }
+    public string? BackofficeDescription { get; set; }
+    public Dictionary<string, string?>? Name { get; set; }
+    public Dictionary<string, string?>? Description { get; set; }
+    public bool Localized { get; set; }
+    public abstract string AttributeType { get; }
+    public string? DimensionUid { get; set; }
+    public string? FallbackSegment { get; set; }
+    public List<AttributeDimension>? Dimensions { get; set; }
+    public string? GlobalListUid { get; set; }
+    public bool AllowMultipleValues { get; set; }
+    public bool EnableTableView { get; set; }
+    public string? RenderedValueSeparator { get; set; }
+    public bool Mandatory { get; set; }
+}

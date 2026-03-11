@@ -4,6 +4,8 @@ using Spectre.Console;
 using Spectre.Console.Cli;
 using Struct.Api;
 using Struct.Api.Models;
+using Struct.OpenApi.Generator.Common;
+using Struct.OpenApi.Generator.Common.Extensions;
 using Struct.OpenApi.Generator.Services;
 
 namespace Struct.OpenApi.Generator.Commands;
@@ -74,7 +76,7 @@ public class GenerateExampleCommand : AsyncCommand<GenerateExampleCommand.Settin
             .Spinner(Spinner.Known.Star)
             .StartAsync($"Loading {structure.Alias}...", async ctx => await client.GetProductStructureAsync(structure.Uid));
 
-        var (productAttributeUids, variantAttributeUids) = OpenApiService.ExtractAttributeUids(fullStructure);
+        var (productAttributeUids, variantAttributeUids) = fullStructure.ExtractAttributeUids();
 
         var attributeUids = settings.Type == ItemType.Product ? productAttributeUids : variantAttributeUids;
         console.MarkupLine($"  Found [cyan]{attributeUids.Count}[/] {settings.Type.ToString().ToLower()} attributes");
@@ -129,72 +131,13 @@ public class GenerateExampleCommand : AsyncCommand<GenerateExampleCommand.Settin
 
         foreach (var attr in attributes)
         {
-            values[attr.Alias] = GenerateDummyValue(attr, dimensions, languages);
+            var attrInfo = AttributeInfoExtensions.FromAttributeInfo(attr);
+            var generator = AttributeSchemaGeneratorFactory.GetGenerator(attrInfo);
+            values[attr.Alias] = generator.GenerateDummyValue(attrInfo, dimensions, languages);
         }
 
         result["Values"] = values;
 
         return result;
-    }
-
-    private static object? GenerateDummyValue(AttributeInfo attribute, List<Dimension> dimensions, List<Language> languages)
-    {
-        var attrType = attribute.AttributeType?.ToLowerInvariant() ?? "";
-
-        if (attribute.Localized || !string.IsNullOrEmpty(attribute.DimensionUid))
-        {
-            var dimension = !string.IsNullOrEmpty(attribute.DimensionUid)
-                ? dimensions.FirstOrDefault(d => d.Uid == attribute.DimensionUid)
-                : null;
-
-            var segments = dimension?.Segments ?? [];
-            var langs = attribute.Localized ? languages : [new Language { CultureCode = "", Name = "" }];
-
-            if (segments.Count == 0)
-            {
-                segments = [new DimensionSegment { Uid = "", Identifier = "default", Name = "" }];
-            }
-
-            var items = new List<Dictionary<string, object?>>();
-
-            foreach (var segment in segments)
-            {
-                foreach (var lang in langs)
-                {
-                    var item = new Dictionary<string, object?>();
-
-                    if (!string.IsNullOrEmpty(attribute.DimensionUid))
-                    {
-                        item["Segment"] = segment.Identifier;
-                    }
-
-                    if (attribute.Localized)
-                    {
-                        item["CultureCode"] = lang.CultureCode;
-                    }
-
-                    item["Value"] = GetBaseTypeDummyValue(attrType);
-                    items.Add(item);
-                }
-            }
-
-            return items;
-        }
-
-        return GetBaseTypeDummyValue(attrType);
-    }
-
-    private static object? GetBaseTypeDummyValue(string attrType)
-    {
-        return attrType switch
-        {
-            "numberattribute" or "decimalattribute" => 42.5,
-            "booleanattribute" => true,
-            "dateattribute" => "2024-01-15",
-            "datetimeattribute" => "2024-01-15T10:30:00Z",
-            "assetreferenceattribute" or "imagereferenceattribute" => "/assets/example.jpg",
-            "complexattribute" => new Dictionary<string, object?> { ["key"] = "value" },
-            _ => "sample text"
-        };
     }
 }

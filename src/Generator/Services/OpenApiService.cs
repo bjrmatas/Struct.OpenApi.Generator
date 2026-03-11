@@ -1,14 +1,12 @@
 using Struct.Api.Models;
+using Struct.OpenApi.Generator.Common;
+using Struct.OpenApi.Generator.Common.Extensions;
 using Struct.OpenApi.Generator.Models;
 
 namespace Struct.OpenApi.Generator.Services;
 
 public static class OpenApiService
 {
-    /// <summary>
-    /// Creates a new OpenAPI document with default settings.
-    /// </summary>
-    /// <returns>A new OpenApiDocument instance.</returns>
     public static OpenApiDocument CreateOpenApiDocument()
     {
         return new OpenApiDocument
@@ -24,191 +22,135 @@ public static class OpenApiService
     }
 
     /// <summary>
-    /// Extracts all unique attribute UIDs from a product structure's tabs and sections.
-    /// </summary>
-    /// <param name="structure">The product structure to extract attribute UIDs from.</param>
-    /// <returns>A tuple of two lists: product attribute UIDs and variant attribute UIDs.</returns>
-    public static (List<string> ProductAttributes, List<string> VariantAttributes) ExtractAttributeUids(ProductStructure structure)
-    {
-        var productUids = new HashSet<string>();
-        var variantUids = new HashSet<string>();
-
-        if (structure.ProductConfiguration?.Tabs != null)
-        {
-            foreach (var tab in structure.ProductConfiguration.Tabs)
-            {
-                if (tab.Sections == null) continue;
-                foreach (var section in tab.Sections)
-                {
-                    if (section.Properties == null) continue;
-                    foreach (var prop in section.Properties)
-                    {
-                        if (!string.IsNullOrEmpty(prop.AttributeUid))
-                        {
-                            productUids.Add(prop.AttributeUid);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (structure.VariantConfiguration?.Tabs != null)
-        {
-            foreach (var tab in structure.VariantConfiguration.Tabs)
-            {
-                if (tab.Sections == null) continue;
-                foreach (var section in tab.Sections)
-                {
-                    if (section.Properties == null) continue;
-                    foreach (var prop in section.Properties)
-                    {
-                        if (!string.IsNullOrEmpty(prop.AttributeUid))
-                        {
-                            variantUids.Add(prop.AttributeUid);
-                        }
-                    }
-                }
-            }
-        }
-
-        return ([.. productUids], [.. variantUids]);
-    }
-
-    /// <summary>
-    /// Generates an OpenAPI schema from product and variant attributes wrapped in a default Product object.
+    /// Generates an OpenAPI document from product and variant attributes.
     /// </summary>
     /// <param name="productAttributes">The list of product attributes.</param>
     /// <param name="variantAttributes">The list of variant attributes.</param>
-    /// <returns>An OpenApiSchema representing a Product object with Values, ProductId, and Variant.</returns>
-    public static OpenApiSchema GenerateSchema(List<AttributeInfo> productAttributes, List<AttributeInfo> variantAttributes)
+    /// <returns>An OpenApiDocument with schemas for products, variants, and complex types.</returns>
+    public static OpenApiDocument CreateOpenApiDocument(List<AttributeInfo> productAttributes, List<AttributeInfo> variantAttributes)
     {
-        var valueProperties = new Dictionary<string, OpenApiSchema>();
+        var complexTypes = new Dictionary<string, OpenApiSchema>();
 
-        foreach (var attr in productAttributes)
+        var globalListProperties = BuildGlobalListSchemas(productAttributes, complexTypes);
+        var globalListRefProperties = globalListProperties.Properties;
+        var globalListValProperties = globalListProperties.Properties;
+        var globalListRefValuesSchema = CreateObjectSchema(globalListRefProperties, globalListProperties.Required);
+        var globalListValValuesSchema = CreateObjectSchema(globalListValProperties, globalListProperties.Required);
+
+        var variantGlobalListProperties = BuildGlobalListSchemas(variantAttributes, complexTypes);
+        var variantGlobalListRefProperties = variantGlobalListProperties.Properties;
+        var variantGlobalListValProperties = variantGlobalListProperties.Properties;
+        var variantGlobalListRefValuesSchema = CreateObjectSchema(variantGlobalListRefProperties, variantGlobalListProperties.Required);
+        var variantGlobalListValValuesSchema = CreateObjectSchema(variantGlobalListValProperties, variantGlobalListProperties.Required);
+
+        var variantWithGlobalListRefSchema = CreateItemSchema("VariantId", variantGlobalListRefValuesSchema);
+        var variantWithGlobalListValSchema = CreateItemSchema("VariantId", variantGlobalListValValuesSchema);
+
+        var productWithGlobalListRefSchema = CreateItemSchema("ProductId", globalListRefValuesSchema, variantWithGlobalListRefSchema);
+        var productWithGlobalListValSchema = CreateItemSchema("ProductId", globalListValValuesSchema, variantWithGlobalListValSchema);
+
+        var openApiDoc = CreateOpenApiDocument();
+        openApiDoc.Components ??= new OpenApiComponents();
+
+        openApiDoc.Components.Schemas["ProductWithGlobalListReference"] = productWithGlobalListRefSchema;
+        openApiDoc.Components.Schemas["ProductWithGlobalListValue"] = productWithGlobalListValSchema;
+
+        if (variantGlobalListRefProperties.Count > 0)
         {
-            var attrSchema = ConvertAttributeToSchema(attr);
-            valueProperties[attr.Alias] = attrSchema;
+            openApiDoc.Components.Schemas["VariantWithGlobalListReference"] = variantWithGlobalListRefSchema;
         }
 
-        var valuesSchema = new OpenApiSchema
+        if (variantGlobalListValProperties.Count > 0)
         {
-            Type = "object",
-            Properties = valueProperties
-        };
-
-        var variantValueProperties = new Dictionary<string, OpenApiSchema>();
-
-        foreach (var attr in variantAttributes)
-        {
-            var attrSchema = ConvertAttributeToSchema(attr);
-            variantValueProperties[attr.Alias] = attrSchema;
+            openApiDoc.Components.Schemas["VariantWithGlobalListValue"] = variantWithGlobalListValSchema;
         }
 
-        var variantValuesSchema = new OpenApiSchema
+        foreach (var complexType in complexTypes)
         {
-            Type = "object",
-            Properties = variantValueProperties
-        };
+            openApiDoc.Components.Schemas[complexType.Key] = complexType.Value;
+        }
 
-        var variantSchema = new OpenApiSchema
+        return openApiDoc;
+    }
+
+    private static (Dictionary<string, OpenApiSchema> Properties, List<string> Required) BuildGlobalListSchemas(
+        IEnumerable<AttributeInfo> attributes,
+        Dictionary<string, OpenApiSchema> complexTypes)
+    {
+        var result = new Dictionary<string, OpenApiSchema>();
+        var required = new List<string>();
+
+        foreach (var attr in attributes)
         {
-            Type = "object",
-            Properties = new Dictionary<string, OpenApiSchema>
+            if (!IsGlobalListAttribute(attr))
             {
-                ["VariantId"] = new OpenApiSchema { Type = "integer", Format = "int32" },
-                ["Values"] = variantValuesSchema
+                continue;
             }
-        };
 
-        var productProperties = new Dictionary<string, OpenApiSchema>
-        {
-            ["ProductId"] = new OpenApiSchema { Type = "integer", Format = "int32" },
-            ["Values"] = valuesSchema,
-            ["Variant"] = variantSchema
-        };
+            var schema = ConvertGlobalListSchema(attr, complexTypes);
 
+            if (attr.Mandatory)
+            {
+                required.Add(attr.Alias);
+                schema.Nullable = false;
+            }
+
+            result[attr.Alias] = schema;
+        }
+
+        return (result, required);
+    }
+
+    private static OpenApiSchema CreateObjectSchema(Dictionary<string, OpenApiSchema> properties, List<string>? required = null)
+    {
         return new OpenApiSchema
         {
             Type = "object",
-            Properties = productProperties
+            Properties = properties,
+            Required = required != null && required.Count > 0 ? required : null
         };
     }
 
-    /// <summary>
-    /// Converts an attribute to its OpenAPI schema representation.
-    /// </summary>
-    /// <param name="attribute">The attribute to convert.</param>
-    /// <returns>An OpenApiSchema representing the attribute.</returns>
-    private static OpenApiSchema ConvertAttributeToSchema(AttributeInfo attribute)
+    private static OpenApiSchema CreateItemSchema(string idPropertyName, OpenApiSchema valuesSchema, OpenApiSchema? variantSchema = null)
     {
-        var description = attribute.BackofficeName ?? attribute.Name?.Values.FirstOrDefault();
-        var schema = new OpenApiSchema
+        var properties = new Dictionary<string, OpenApiSchema>
         {
-            Description = description
+            [idPropertyName] = new OpenApiSchema { Type = "integer", Format = "int32" },
+            ["Values"] = valuesSchema
         };
 
-        var hasSegment = !string.IsNullOrEmpty(attribute.DimensionUid);
-
-        if (attribute.Localized || hasSegment)
+        if (variantSchema != null)
         {
-            schema.Type = "array";
-            schema.Items = new OpenApiSchema
-            {
-                Type = "object",
-                Properties = []
-            };
-
-            if (hasSegment)
-            {
-                schema.Items.Properties!["Segment"] = new OpenApiSchema { Type = "string" };
-            }
-
-            if (attribute.Localized)
-            {
-                schema.Items.Properties!["CultureCode"] = new OpenApiSchema { Type = "string" };
-            }
-
-            var valueSchema = GetBaseTypeSchema(attribute);
-            schema.Items.Properties!["Value"] = valueSchema;
-        }
-        else
-        {
-            var baseSchema = GetBaseTypeSchema(attribute);
-            schema.Type = baseSchema.Type;
-            schema.Format = baseSchema.Format;
-            schema.Items = baseSchema.Items;
+            properties["Variant"] = variantSchema;
         }
 
-        return schema;
+        return CreateObjectSchema(properties);
     }
 
-    /// <summary>
-    /// Gets the base OpenAPI schema type for an attribute based on its type.
-    /// </summary>
-    /// <param name="attribute">The attribute to get the base type schema for.</param>
-    /// <returns>An OpenApiSchema with the appropriate type and format.</returns>
-    private static OpenApiSchema GetBaseTypeSchema(AttributeInfo attribute)
+    private static bool IsGlobalListAttribute(AttributeInfo attribute)
     {
-        var schema = new OpenApiSchema();
-        var attrType = attribute.AttributeType?.ToLowerInvariant() ?? "";
+        return !string.IsNullOrEmpty(attribute.GlobalListUid);
+    }
 
-        if (attrType.Contains("complex"))
+    private static OpenApiSchema ConvertGlobalListSchema(AttributeInfo attribute, Dictionary<string, OpenApiSchema> complexTypes)
+    {
+        var fixedList = attribute as FixedListAttributeInfo;
+        var referencedAttribute = fixedList?.Template ?? fixedList?.ReferencedAttribute;
+
+        OpenApiSchema valueSchema;
+
+        if (referencedAttribute != null)
         {
-            schema.Type = "object";
+            var valueAttrInfo = AttributeInfoExtensions.FromAttributeInfo(referencedAttribute);
+            var valueGenerator = AttributeSchemaGeneratorFactory.GetGenerator(valueAttrInfo);
+            valueSchema = valueGenerator.GenerateSchema(valueAttrInfo, complexTypes);
         }
         else
         {
-            schema.Type = attrType switch
-            {
-                "numberattribute" or "decimalattribute" => "number",
-                "booleanattribute" => "boolean",
-                "dateattribute" => "string",
-                "datetimeattribute" => "string",
-                "assetreferenceattribute" or "imagereferenceattribute" => "string",
-                _ => "string"
-            };
+            valueSchema = new OpenApiSchema { Type = "string" };
         }
 
-        return schema;
+        return attribute.CreateLocalizedOrSegmentedSchema(() => valueSchema);
     }
+
 }

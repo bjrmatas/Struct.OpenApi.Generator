@@ -1,0 +1,758 @@
+[
+    {
+        "Uid": "2cd98f5b-a9e6-40e6-a833-4f844f716eff",
+        "Alias": "Base",
+        "Label": "Base",
+        "HasVariants": true,
+        "HasVariantGroups": false,
+        "ProductConfiguration": {
+            "ThumbnailReference": null,
+            "NameConfiguration": {
+                "NamePattern": "{0}",
+                "NameAttributes": [
+                    "fd645564-846a-4811-a9d8-87db984497e3"
+                ]
+            },
+            "CreateWizard": {
+                "Uid": "68f3ee23-c3bf-4d30-b115-4b37aa433336",
+                "Steps": [
+                    {
+                        "Properties": [
+                            {
+                                "PropertyUid": "333a9183-d26f-44a0-a4bf-76f6be871bf7",
+                                "Mandatory": false,
+                                "Uid": "7b119108-b62d-40f3-992a-37f2b5b14a33",
+                                "Type": "AttributeWizardPropertySetup"
+                            }
+                        ],
+                        "Uid": "b867b978-779f-4f4f-a582-2c52d903d059",
+                        "Headline": "Data",
+                        "Description": null,
+                        "Type": "DynamicWizardStepSetup"
+                    }
+                ]
+            },
+            "CopyWizard": null,
+            "Tabs": [
+                {
+                    "Label": "Basic",
+                    "Sections": [
+                        {
+                            "Headline": "Identification",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "fd645564-846a-4811-a9d8-87db984497e3",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "333a9183-d26f-44a0-a4bf-76f6be871bf7",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "81693d91-3b56-424f-b391-770de6f57693",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "4f77d22c-e77d-4a82-b16c-fe6e945c2ec5",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "3c56793a-0249-471d-ad21-790285a8fed6",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "438528d1-cd7c-426e-aadb-73a0eaa718be",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "6a04a2c5-cbec-4061-8f28-83f93deba24f",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "75a46447-69b6-4c03-98f7-50c9f64c9be8",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "bf890f60-0c55-47a3-893a-1f4b3bfafc43",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Status",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "f8f0f5d7-f550-4f9b-87ea-754e71b6a189",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "ba704a95-c684-48f8-9230-5e65bbd55934",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "88021e99-c67a-4b30-87b2-4902ee719862",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Description",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "9475198e-3d6c-47d7-865b-0886204b97c6",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "3d36eb39-3f4e-4d97-ad00-bac76174e585",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "8601001f-7c7e-43fe-9fd7-3e127915439d",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        }
+                    ],
+                    "ShowSidebar": false,
+                    "Uid": "6c2e9849-0eb4-4900-b963-ab16eea18ec8",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "DynamicTabSetup"
+                },
+                {
+                    "Label": "SEO",
+                    "Sections": [
+                        {
+                            "Headline": "SEO/Search",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "cafd2900-be29-45fd-bfbb-d18bd7a3b14f",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "2988fc52-ab35-4ca7-adc3-56184370f70a",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "9f9f9981-8746-4a16-9c6a-1015855f9f1d",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "c8185e1a-f0a2-4283-a2df-7e890c8f78d1",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "200e47e4-1c56-4843-ae69-b41862032b0d",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        }
+                    ],
+                    "ShowSidebar": false,
+                    "Uid": "b3185fdb-1a2e-4b2c-b9d8-f500054f44e5",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "DynamicTabSetup"
+                },
+                {
+                    "Label": "Settings",
+                    "Sections": [
+                        {
+                            "Headline": "Settings",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "6074dd33-19eb-43be-91c4-0d4c26ced883",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "3a3fdcff-9b23-4767-8787-a49448523e75",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "b5a654f5-58b1-4780-ac4a-1e87c910b844",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "2f627f3d-aff6-40a4-bca0-c0c9a5a7d1df",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "3923e3d0-4962-43ee-922a-df376fcbfb2b",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        }
+                    ],
+                    "ShowSidebar": false,
+                    "Uid": "9f71d5fa-1f63-48ac-85b8-1ff7d882619d",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "DynamicTabSetup"
+                },
+                {
+                    "Uid": "231cd568-54a4-40f5-9cbb-4ad23f42cd30",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "ClassificationsTabSetup"
+                },
+                {
+                    "Uid": "985fba8f-181d-416f-8728-8916faf21dc4",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "VariantsTabSetup"
+                }
+            ]
+        },
+        "VariantGroupConfiguration": {
+            "GroupingAttributes": [],
+            "ThumbnailReference": null,
+            "NameConfiguration": {
+                "NamePattern": "",
+                "NameAttributes": []
+            },
+            "CreateWizard": null,
+            "CopyWizard": null,
+            "Tabs": []
+        },
+        "VariantConfiguration": {
+            "ThumbnailReference": null,
+            "CreateWizard": null,
+            "Tabs": [
+                {
+                    "Label": "Details",
+                    "Sections": [
+                        {
+                            "Headline": "Identification",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "fd645564-846a-4811-a9d8-87db984497e3",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "f85ae743-2433-43b4-a33e-8d482e1e0ff8",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "a7d31b67-8997-4499-a2e4-8f7c98df9808",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "885bc385-c375-4c49-85e8-14b682ac6252",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "3e14c911-996d-4f89-8344-4207e6e8d6c4",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "ac5c38f9-3575-468b-ac03-95e387a32487",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "6a958acd-7c00-4754-9548-c053aca9f727",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "1c7b390c-1aa2-4b4f-bc1e-63790c40556f",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "9c44ec09-cd6d-407e-b987-529d62a6ad60",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Variant Identification",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "641c99f5-2ddc-4bb0-b596-d7da1a1c3c26",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "9597367d-0fd8-40e2-b7f2-1dc20dc395ff",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "fe4f6506-48ae-403f-b2a6-de08b67b72f8",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Description",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "1a8cb52d-63e1-4123-89e2-e67b97387d58",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "b21ed772-6fb1-4158-8aee-c28bced75abc",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "b9871bc8-5861-46d3-aa46-0dc1eedbc838",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Specifications",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "ad1c1a9e-25b4-4196-a79a-6be27beb92a1",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "206db832-d749-4f7e-933e-04d9bd6c60e0",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "6969778b-e0d9-417b-bff4-dfb733319a43",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Content",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "3d6de997-3ef9-4ead-8897-93e2e1764ba2",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "76289a76-0a2e-40c9-bba0-a27e8ce1cdc6",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "c0e8e7f4-01aa-4f87-9872-b3360aa07525",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "af44b220-6b95-4069-b46b-196f62ae7e6f",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "c2039b28-2572-4306-b676-3ef5ff10ae43",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Web",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "88a8cf79-926c-44ce-a047-e8ff1658c996",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "db946920-736d-4f68-b55d-507a4a064bf5",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "17547d1a-9021-4d55-9912-73ece0a8bfa1",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "b42cccc9-f148-4e2a-860b-195599ce42c8",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "0147e4a6-5d12-43d3-b817-eb46410049e4",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Stock & Commercial Splashes",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "5e68dc36-ad37-48ee-adf4-bb37ea5dee2b",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "aba09aaf-c6c5-4d2a-93e5-1165b1f05778",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "4ff1f861-eda3-4d1a-a059-88c4d4e03d4e",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "9f6a1b85-63ae-452e-b47e-c66a03b396ba",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "af37f3e6-eba9-4b13-ada7-f1b751208894",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "e305e2b0-75ff-4d30-9dd5-ddc1cdf0c3b9",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "eddd589c-9f60-4190-b796-00f406ccc56c",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "52862d58-1cab-49be-b7ac-2729b6d313ba",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "065c16b9-fd68-4cbd-93ce-3e0752f62a42",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "6c99d9e2-fdcb-44a6-babf-3a4e92ca7d55",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "ca90c785-2157-4020-87a6-11998c805baa",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Inherited",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "b5a654f5-58b1-4780-ac4a-1e87c910b844",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "8ffbfff8-6c39-413a-8479-f25816db7081",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "6074dd33-19eb-43be-91c4-0d4c26ced883",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "75ee80f5-8fd5-453b-a7be-47851ca5411b",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "f8f0f5d7-f550-4f9b-87ea-754e71b6a189",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "52c1dda0-4a79-44cf-ae76-b0a110b7bf1b",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "6a04a2c5-cbec-4061-8f28-83f93deba24f",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "815f5ff8-8c1c-47b1-9f82-24047ab3be52",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "3c56793a-0249-471d-ad21-790285a8fed6",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "99cefd84-e012-499d-b24e-7be80eb90a08",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "9475198e-3d6c-47d7-865b-0886204b97c6",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "13ffe6bc-0273-4ee3-8144-48202385aa5b",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "9f9f9981-8746-4a16-9c6a-1015855f9f1d",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "a6d114d9-cc18-4648-8182-df5e21499b8c",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "58b2c96e-2c55-479c-9029-168424837064",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        },
+                        {
+                            "Headline": "Commercial",
+                            "Description": "",
+                            "Properties": [],
+                            "Uid": "33f96c38-dc49-498c-bf21-762f11984abf",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        }
+                    ],
+                    "ShowSidebar": true,
+                    "Uid": "29a5bc7f-3d86-4740-bc02-bf532745e2d7",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "DynamicTabSetup"
+                },
+                {
+                    "Label": "SEO",
+                    "Sections": [
+                        {
+                            "Headline": "Search",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "cafd2900-be29-45fd-bfbb-d18bd7a3b14f",
+                                    "ReadOnly": true,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": true,
+                                    "Uid": "28f9365e-7770-4e0d-a1b1-15b33250eded",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "6dad9c04-ec71-4f58-9260-47cec61e74f7",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "d0cedfe7-4651-41eb-aaa8-1efb781bbc4b",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "60bc169a-c2cd-4b93-9df0-298bd21c4484",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "8d4eabe2-7f5c-4989-b4f1-c9ea06f27646",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "c27a361c-09dc-4593-b874-96e20bb42b76",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "6d885f1b-0c80-45b4-96f5-0ffe3137ea7d",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "8a6e3423-ec6b-4390-b84a-8f78b0a2a409",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        }
+                    ],
+                    "ShowSidebar": false,
+                    "Uid": "128857c6-bd7a-453a-9175-a4a846b0ef34",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "DynamicTabSetup"
+                },
+                {
+                    "Label": "Specification",
+                    "Sections": [
+                        {
+                            "Headline": "Specification",
+                            "Description": "",
+                            "Properties": [
+                                {
+                                    "AttributeUid": "05b6d051-d014-42a2-81ca-bdfedf3b90fd",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "316d4ab4-c846-4ef4-9847-cea33316da3a",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                },
+                                {
+                                    "AttributeUid": "33f8cfc5-49d1-4d39-8316-bbe9a33768f3",
+                                    "ReadOnly": false,
+                                    "Mandatory": false,
+                                    "Unchangeable": false,
+                                    "Inherits": false,
+                                    "Uid": "de01d63e-4214-474d-9dd2-0af7dca9ce3c",
+                                    "ViewPermission": null,
+                                    "SavePermission": null,
+                                    "Type": "AttributeSetup"
+                                }
+                            ],
+                            "Uid": "de719b37-1de1-45de-9b75-fbd8ba4d7d39",
+                            "ViewPermission": null,
+                            "SavePermission": null,
+                            "Type": "DynamicSectionSetup"
+                        }
+                    ],
+                    "ShowSidebar": false,
+                    "Uid": "a88ca8b8-637c-46de-a530-969f7dbcd774",
+                    "ViewPermission": null,
+                    "SavePermission": null,
+                    "Type": "DynamicTabSetup"
+                }
+            ]
+        },
+        "VariationDefinitions": [
+            {
+                "Uid": "2a4f929e-eb73-4701-9a31-d0b4b9a25dfd",
+                "Alias": "Default",
+                "Name": "Default",
+                "NameConfiguration": {
+                    "NamePattern": "{0} - {1}",
+                    "NameAttributes": [
+                        "3e14c911-996d-4f89-8344-4207e6e8d6c4",
+                        "a7d31b67-8997-4499-a2e4-8f7c98df9808"
+                    ]
+                },
+                "DefiningAttributes": [
+                    "3e14c911-996d-4f89-8344-4207e6e8d6c4",
+                    "a7d31b67-8997-4499-a2e4-8f7c98df9808"
+                ],
+                "SortOrder": 0
+            }
+        ],
+        "AlwaysOnDefiningAttributes": [],
+        "ProductIdentifierDefinitions": [
+            {
+                "Uid": "6c37bd35-8061-4945-848c-d4cb1d521a31",
+                "Alias": "ProductId",
+                "IdentifierPattern": "{0}",
+                "IdentifierAttributes": [
+                    "81693d91-3b56-424f-b391-770de6f57693"
+                ]
+            }
+        ],
+        "VariantGroupIdentifierDefinitions": [],
+        "VariantIdentifierDefinitions": [
+            {
+                "Uid": "237624f8-13b7-4578-bd40-3cc95e18eb86",
+                "Alias": "ItemId",
+                "IdentifierPattern": "{0}",
+                "IdentifierAttributes": [
+                    "a7d31b67-8997-4499-a2e4-8f7c98df9808"
+                ]
+            }
+        ]
+    }
+]
