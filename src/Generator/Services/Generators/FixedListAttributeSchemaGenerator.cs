@@ -11,14 +11,4 @@ public sealed class FixedListAttributeSchemaGenerator : IAttributeSchemaGenerato
     {
         return attribute.CreateLocalizedOrSegmentedSchema(() => new OpenApiSchema { Type = "string" });
     }
-
-    public object? GenerateDummyValue(IAttributeInfo attribute, List<Dimension> dimensions, List<Language> languages)
-    {
-        if (attribute.Localized || attribute.HasSegment())
-        {
-            return attribute.GenerateLocalizedOrSegmentedDummyValue(dimensions, languages, () => "dummy-value");
-        }
-
-        return "dummy-value";
-    }
 }

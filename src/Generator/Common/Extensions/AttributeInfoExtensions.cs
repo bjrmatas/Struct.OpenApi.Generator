@@ -24,7 +24,7 @@ public static class AttributeInfoExtensions
             schema.Items = new OpenApiSchema
             {
                 Type = "object",
-                Properties = new Dictionary<string, OpenApiSchema>()
+                Properties = []
             };
 
             if (attribute.HasSegment())

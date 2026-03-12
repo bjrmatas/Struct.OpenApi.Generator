@@ -18,9 +18,4 @@ public sealed class ListAttributeSchemaGenerator : IAttributeSchemaGenerator
             Items = new OpenApiSchema { Type = "string" }
         };
     }
-
-    public object? GenerateDummyValue(IAttributeInfo attribute, List<Dimension> dimensions, List<Language> languages)
-    {
-        return new[] { "item1", "item2" };
-    }
 }

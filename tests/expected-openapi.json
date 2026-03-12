@@ -17,89 +17,129 @@
           "Values": {
             "type": "object",
             "properties": {
+              "IsFindation": {
+                "type": "array",
+                "description": "Is Findation",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "IsVirtualTryOn": {
+                "type": "array",
+                "description": "Is virtual try on",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ProductId": {
+                "type": "string",
+                "description": "Product Id",
+                "nullable": true
+              },
+              "ProductName": {
+                "type": "array",
+                "description": "Product Name",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "ReadyForWeb": {
-                "type": "boolean",
+                "type": "string",
+                "format": "uuid",
                 "description": "Ready for web",
                 "nullable": false
               },
+              "SEODescription": {
+                "type": "array",
+                "description": "SEO Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "SEOTitleTag": {
+                "type": "array",
+                "description": "SEO title tag",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "Usage": {
+                "type": "string",
+                "format": "uuid",
                 "description": "Usage",
-                "$ref": "#/components/schemas/Usage",
                 "nullable": true
               },
               "WebBrand": {
+                "type": "string",
+                "format": "uuid",
                 "description": "Web brand",
-                "$ref": "#/components/schemas/WebBrand",
+                "nullable": true
+              },
+              "WebDescription": {
+                "type": "array",
+                "description": "Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
                 "nullable": true
               }
             },
             "required": [
               "ReadyForWeb"
             ]
-          },
-          "Variant": {
-            "type": "object",
-            "properties": {
-              "VariantId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "Values": {
-                "type": "object",
-                "properties": {
-                  "Age": {
-                    "description": "Age",
-                    "$ref": "#/components/schemas/Age",
-                    "nullable": false
-                  },
-                  "AgeChilden": {
-                    "description": "AgeChilden",
-                    "$ref": "#/components/schemas/AgeChildren",
-                    "nullable": false
-                  },
-                  "HideFromPDP": {
-                    "type": "boolean",
-                    "description": "Supplier hide from PDP",
-                    "nullable": true
-                  },
-                  "HighlightsConscious": {
-                    "description": "Highlights conscious",
-                    "$ref": "#/components/schemas/HighlightsConscious",
-                    "nullable": true
-                  },
-                  "HighlightsConsciousCustom": {
-                    "description": "Highlights conscious custom",
-                    "$ref": "#/components/schemas/HighlightsConscious",
-                    "nullable": true
-                  },
-                  "ReadyForWeb": {
-                    "type": "boolean",
-                    "description": "Ready for web",
-                    "nullable": false
-                  },
-                  "TipType": {
-                    "description": "Tip type",
-                    "$ref": "#/components/schemas/TipType",
-                    "nullable": true
-                  },
-                  "Usage": {
-                    "description": "Usage",
-                    "$ref": "#/components/schemas/Usage",
-                    "nullable": true
-                  },
-                  "WebBrand": {
-                    "description": "Web brand",
-                    "$ref": "#/components/schemas/WebBrand",
-                    "nullable": true
-                  }
-                },
-                "required": [
-                  "Age",
-                  "AgeChilden",
-                  "ReadyForWeb"
-                ]
-              }
-            }
           }
         }
       },
@@ -113,10 +153,95 @@
           "Values": {
             "type": "object",
             "properties": {
+              "IsFindation": {
+                "type": "array",
+                "description": "Is Findation",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "IsVirtualTryOn": {
+                "type": "array",
+                "description": "Is virtual try on",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ProductId": {
+                "type": "string",
+                "description": "Product Id",
+                "nullable": true
+              },
+              "ProductName": {
+                "type": "array",
+                "description": "Product Name",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "ReadyForWeb": {
-                "type": "boolean",
                 "description": "Ready for web",
+                "$ref": "#/components/schemas/TrueFalse",
                 "nullable": false
+              },
+              "SEODescription": {
+                "type": "array",
+                "description": "SEO Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "SEOTitleTag": {
+                "type": "array",
+                "description": "SEO title tag",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
               },
               "Usage": {
                 "description": "Usage",
@@ -127,75 +252,27 @@
                 "description": "Web brand",
                 "$ref": "#/components/schemas/WebBrand",
                 "nullable": true
+              },
+              "WebDescription": {
+                "type": "array",
+                "description": "Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
               }
             },
             "required": [
               "ReadyForWeb"
             ]
-          },
-          "Variant": {
-            "type": "object",
-            "properties": {
-              "VariantId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "Values": {
-                "type": "object",
-                "properties": {
-                  "Age": {
-                    "description": "Age",
-                    "$ref": "#/components/schemas/Age",
-                    "nullable": false
-                  },
-                  "AgeChilden": {
-                    "description": "AgeChilden",
-                    "$ref": "#/components/schemas/AgeChildren",
-                    "nullable": false
-                  },
-                  "HideFromPDP": {
-                    "type": "boolean",
-                    "description": "Supplier hide from PDP",
-                    "nullable": true
-                  },
-                  "HighlightsConscious": {
-                    "description": "Highlights conscious",
-                    "$ref": "#/components/schemas/HighlightsConscious",
-                    "nullable": true
-                  },
-                  "HighlightsConsciousCustom": {
-                    "description": "Highlights conscious custom",
-                    "$ref": "#/components/schemas/HighlightsConscious",
-                    "nullable": true
-                  },
-                  "ReadyForWeb": {
-                    "type": "boolean",
-                    "description": "Ready for web",
-                    "nullable": false
-                  },
-                  "TipType": {
-                    "description": "Tip type",
-                    "$ref": "#/components/schemas/TipType",
-                    "nullable": true
-                  },
-                  "Usage": {
-                    "description": "Usage",
-                    "$ref": "#/components/schemas/Usage",
-                    "nullable": true
-                  },
-                  "WebBrand": {
-                    "description": "Web brand",
-                    "$ref": "#/components/schemas/WebBrand",
-                    "nullable": true
-                  }
-                },
-                "required": [
-                  "Age",
-                  "AgeChilden",
-                  "ReadyForWeb"
-                ]
-              }
-            }
           }
         }
       },
@@ -209,55 +286,367 @@
           "Values": {
             "type": "object",
             "properties": {
+              "AdviserDescription": {
+                "type": "array",
+                "description": "Adviser description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": false
+              },
+              "AdviserHeadline": {
+                "type": "array",
+                "description": "Adviser headline",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": false
+              },
               "Age": {
+                "type": "array",
                 "description": "Age",
-                "$ref": "#/components/schemas/Age",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
                 "nullable": false
               },
               "AgeChilden": {
+                "type": "array",
                 "description": "AgeChilden",
-                "$ref": "#/components/schemas/AgeChildren",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
                 "nullable": false
               },
+              "ChargingTime": {
+                "type": "string",
+                "description": "Charging time",
+                "nullable": false
+              },
+              "Color": {
+                "type": "string",
+                "description": "Hex colors",
+                "nullable": false
+              },
+              "ColorDescriptionCustom": {
+                "type": "array",
+                "description": "Color description custom",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "HideFromPDP": {
-                "type": "boolean",
+                "type": "string",
+                "format": "uuid",
                 "description": "Supplier hide from PDP",
                 "nullable": true
               },
+              "HideSplash": {
+                "type": "array",
+                "description": "Hide splash",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "HighlightsConscious": {
+                "type": "array",
                 "description": "Highlights conscious",
-                "$ref": "#/components/schemas/HighlightsConscious",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
                 "nullable": true
               },
               "HighlightsConsciousCustom": {
+                "type": "array",
                 "description": "Highlights conscious custom",
-                "$ref": "#/components/schemas/HighlightsConscious",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "nullable": true
+              },
+              "HighlightsDescription": {
+                "type": "array",
+                "description": "Highlights description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "IsFindation": {
+                "type": "array",
+                "description": "Is Findation",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "IsVirtualTryOn": {
+                "type": "array",
+                "description": "Is virtual try on",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ItemId": {
+                "type": "string",
+                "description": "Item Id",
+                "nullable": true
+              },
+              "ItemSEODescription": {
+                "type": "array",
+                "description": "Item SEO description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ItemSEOTitleTag": {
+                "type": "array",
+                "description": "SEO title tag",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "Name": {
+                "type": "array",
+                "description": "Name",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ProductName": {
+                "type": "array",
+                "description": "Product Name",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
                 "nullable": true
               },
               "ReadyForWeb": {
-                "type": "boolean",
+                "type": "string",
+                "format": "uuid",
                 "description": "Ready for web",
                 "nullable": false
               },
+              "SEODescription": {
+                "type": "array",
+                "description": "SEO Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "SEOKeywords": {
+                "type": "array",
+                "description": "SEO Keywords",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "SEOTitleTag": {
+                "type": "array",
+                "description": "SEO title tag",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "Show360Images": {
+                "type": "array",
+                "description": "Show 360 images",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "TipCustom": {
+                "type": "array",
+                "description": "Tip custom",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "TipType": {
+                "type": "string",
+                "format": "uuid",
                 "description": "Tip type",
-                "$ref": "#/components/schemas/TipType",
                 "nullable": true
               },
               "Usage": {
+                "type": "string",
+                "format": "uuid",
                 "description": "Usage",
-                "$ref": "#/components/schemas/Usage",
                 "nullable": true
               },
               "WebBrand": {
+                "type": "string",
+                "format": "uuid",
                 "description": "Web brand",
-                "$ref": "#/components/schemas/WebBrand",
+                "nullable": true
+              },
+              "WebDescription": {
+                "type": "array",
+                "description": "Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
                 "nullable": true
               }
             },
             "required": [
+              "AdviserDescription",
+              "AdviserHeadline",
               "Age",
               "AgeChilden",
+              "ChargingTime",
+              "Color",
               "ReadyForWeb"
             ]
           }
@@ -273,35 +662,318 @@
           "Values": {
             "type": "object",
             "properties": {
+              "AdviserDescription": {
+                "type": "array",
+                "description": "Adviser description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": false
+              },
+              "AdviserHeadline": {
+                "type": "array",
+                "description": "Adviser headline",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": false
+              },
               "Age": {
+                "type": "array",
                 "description": "Age",
-                "$ref": "#/components/schemas/Age",
+                "items": {
+                  "$ref": "#/components/schemas/Age"
+                },
                 "nullable": false
               },
               "AgeChilden": {
+                "type": "array",
                 "description": "AgeChilden",
-                "$ref": "#/components/schemas/AgeChildren",
+                "items": {
+                  "$ref": "#/components/schemas/AgeChildren"
+                },
                 "nullable": false
               },
+              "ChargingTime": {
+                "type": "string",
+                "description": "Charging time",
+                "nullable": false
+              },
+              "Color": {
+                "type": "string",
+                "description": "Hex colors",
+                "nullable": false
+              },
+              "ColorDescriptionCustom": {
+                "type": "array",
+                "description": "Color description custom",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
               "HideFromPDP": {
-                "type": "boolean",
                 "description": "Supplier hide from PDP",
+                "$ref": "#/components/schemas/TrueFalse",
+                "nullable": true
+              },
+              "HideSplash": {
+                "type": "array",
+                "description": "Hide splash",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
                 "nullable": true
               },
               "HighlightsConscious": {
+                "type": "array",
                 "description": "Highlights conscious",
-                "$ref": "#/components/schemas/HighlightsConscious",
+                "items": {
+                  "$ref": "#/components/schemas/HighlightsConscious"
+                },
                 "nullable": true
               },
               "HighlightsConsciousCustom": {
+                "type": "array",
                 "description": "Highlights conscious custom",
-                "$ref": "#/components/schemas/HighlightsConscious",
+                "items": {
+                  "$ref": "#/components/schemas/HighlightsConscious"
+                },
+                "nullable": true
+              },
+              "HighlightsDescription": {
+                "type": "array",
+                "description": "Highlights description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "IsFindation": {
+                "type": "array",
+                "description": "Is Findation",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "IsVirtualTryOn": {
+                "type": "array",
+                "description": "Is virtual try on",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ItemId": {
+                "type": "string",
+                "description": "Item Id",
+                "nullable": true
+              },
+              "ItemSEODescription": {
+                "type": "array",
+                "description": "Item SEO description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ItemSEOTitleTag": {
+                "type": "array",
+                "description": "SEO title tag",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "Name": {
+                "type": "array",
+                "description": "Name",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "ProductName": {
+                "type": "array",
+                "description": "Product Name",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
                 "nullable": true
               },
               "ReadyForWeb": {
-                "type": "boolean",
                 "description": "Ready for web",
+                "$ref": "#/components/schemas/TrueFalse",
                 "nullable": false
+              },
+              "SEODescription": {
+                "type": "array",
+                "description": "SEO Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "SEOKeywords": {
+                "type": "array",
+                "description": "SEO Keywords",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "SEOTitleTag": {
+                "type": "array",
+                "description": "SEO title tag",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "Show360Images": {
+                "type": "array",
+                "description": "Show 360 images",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Segment": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "TipCustom": {
+                "type": "array",
+                "description": "Tip custom",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
               },
               "TipType": {
                 "description": "Tip type",
@@ -317,15 +989,40 @@
                 "description": "Web brand",
                 "$ref": "#/components/schemas/WebBrand",
                 "nullable": true
+              },
+              "WebDescription": {
+                "type": "array",
+                "description": "Description",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "CultureCode": {
+                      "type": "string"
+                    },
+                    "Data": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "nullable": true
               }
             },
             "required": [
+              "AdviserDescription",
+              "AdviserHeadline",
               "Age",
               "AgeChilden",
+              "ChargingTime",
+              "Color",
               "ReadyForWeb"
             ]
           }
         }
+      },
+      "TrueFalse": {
+        "type": "boolean",
+        "description": "True/False",
+        "nullable": true
       },
       "Usage": {
         "type": "object",

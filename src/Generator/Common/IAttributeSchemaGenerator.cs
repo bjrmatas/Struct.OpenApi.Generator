@@ -6,5 +6,4 @@ namespace Struct.OpenApi.Generator.Common;
 public interface IAttributeSchemaGenerator
 {
     OpenApiSchema GenerateSchema(IAttributeInfo attribute, Dictionary<string, OpenApiSchema> complexTypes);
-    object? GenerateDummyValue(IAttributeInfo attribute, List<Dimension> dimensions, List<Language> languages);
 }

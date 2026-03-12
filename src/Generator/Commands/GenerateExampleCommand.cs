@@ -5,7 +5,6 @@ using Spectre.Console.Cli;
 using Struct.Api;
 using Struct.Api.Models;
 using Struct.OpenApi.Generator.Common;
-using Struct.OpenApi.Generator.Common.Extensions;
 using Struct.OpenApi.Generator.Services;
 
 namespace Struct.OpenApi.Generator.Commands;
@@ -23,11 +22,21 @@ public class GenerateExampleCommand : AsyncCommand<GenerateExampleCommand.Settin
         Variant
     }
 
+    public enum SchemaKind
+    {
+        Reference,
+        Value
+    }
+
     public class Settings : CommandSettings
     {
-        [CommandArgument(0, "<TYPE>")]
+        [CommandArgument(0, "[TYPE]")]
         [Description("Type of example: product or variant")]
-        public ItemType Type { get; set; }
+        public ItemType? Type { get; set; }
+
+        [CommandArgument(1, "[SCHEMA]")]
+        [Description("Schema kind: reference or value")]
+        public SchemaKind? Schema { get; set; }
 
         [CommandOption("--output")]
         public string? OutputPath { get; set; }
@@ -78,31 +87,40 @@ public class GenerateExampleCommand : AsyncCommand<GenerateExampleCommand.Settin
 
         var (productAttributeUids, variantAttributeUids) = fullStructure.ExtractAttributeUids();
 
-        var attributeUids = settings.Type == ItemType.Product ? productAttributeUids : variantAttributeUids;
-        console.MarkupLine($"  Found [cyan]{attributeUids.Count}[/] {settings.Type.ToString().ToLower()} attributes");
+        var itemType = settings.Type ?? PromptForItemType();
+        var schemaKind = settings.Schema ?? PromptForSchemaKind();
+
+        var attributeUids = itemType == ItemType.Product ? productAttributeUids : variantAttributeUids;
+        console.MarkupLine($"  Found [cyan]{attributeUids.Count}[/] {itemType.ToString().ToLower()} attributes");
 
         var attributes = await AnsiConsole
             .Status()
             .Spinner(Spinner.Known.Star)
             .StartAsync("Loading attributes...", async _ => await client.GetAttributesBatchAsync(attributeUids));
 
-        var dimensions = await AnsiConsole
+        var otherAttributeUids = itemType == ItemType.Product ? variantAttributeUids : productAttributeUids;
+        var otherAttributes = await AnsiConsole
             .Status()
             .Spinner(Spinner.Known.Star)
-            .StartAsync("Loading dimensions...", async _ => await client.GetDimensionsAsync());
-
-        var languages = await AnsiConsole
-            .Status()
-            .Spinner(Spinner.Known.Star)
-            .StartAsync("Loading languages...", async _ => await client.GetLanguagesAsync());
+            .StartAsync("Loading other attributes...", async _ => await client.GetAttributesBatchAsync(otherAttributeUids));
 
         console.MarkupLine($"  [green]Successfully loaded {attributes.Count} attributes[/]");
-        console.MarkupLine($"  [green]Successfully loaded {dimensions.Count} dimensions[/]");
-        console.MarkupLine($"  [green]Successfully loaded {languages.Count} languages[/]");
 
-        var example = GenerateExampleData(attributes, settings.Type, dimensions, languages);
+        var openApiDoc = itemType == ItemType.Product
+            ? OpenApiService.CreateOpenApiDocument(attributes, otherAttributes)
+            : OpenApiService.CreateOpenApiDocument(otherAttributes, attributes);
 
-        var outputPath = settings.OutputPath ?? $"example-{settings.Type.ToString().ToLower()}.json";
+        var schemaName = GetSchemaName(itemType, schemaKind);
+        if (openApiDoc.Components?.Schemas == null ||
+            !openApiDoc.Components.Schemas.TryGetValue(schemaName, out var targetSchema))
+        {
+            console.MarkupLine($"[red]Schema '{schemaName}' not found.[/]");
+            return 1;
+        }
+
+        var example = AttributeSchemaGeneratorFactory.GenerateExample(targetSchema, openApiDoc);
+
+        var outputPath = settings.OutputPath ?? $"example-{itemType.ToString().ToLower()}-{schemaKind.ToString().ToLower()}.json";
         var json = JsonSerializer.Serialize(example, JsonSerializerOptions);
 
         await File.WriteAllTextAsync(outputPath, json, cancellationToken);
@@ -114,30 +132,26 @@ public class GenerateExampleCommand : AsyncCommand<GenerateExampleCommand.Settin
         return 0;
     }
 
-    private static Dictionary<string, object?> GenerateExampleData(List<AttributeInfo> attributes, ItemType type, List<Dimension> dimensions, List<Language> languages)
+    private static TEnum PromptForEnum<TEnum>(string title) where TEnum : struct, Enum
     {
-        var result = new Dictionary<string, object?>();
+        var selection = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title(title)
+                .PageSize(10)
+                .MoreChoicesText("[grey](Move up and down to select)[/]")
+                .AddChoices(Enum.GetValues<TEnum>().Select(e => e.ToString())));
 
-        if (type == ItemType.Product)
-        {
-            result["ProductId"] = 1;
-        }
-        else if (type == ItemType.Variant)
-        {
-            result["VariantId"] = 1;
-        }
+        return Enum.Parse<TEnum>(selection);
+    }
 
-        var values = new Dictionary<string, object?>();
+    private static ItemType PromptForItemType() => PromptForEnum<ItemType>("Select item type:");
 
-        foreach (var attr in attributes)
-        {
-            var attrInfo = AttributeInfoExtensions.FromAttributeInfo(attr);
-            var generator = AttributeSchemaGeneratorFactory.GetGenerator(attrInfo);
-            values[attr.Alias] = generator.GenerateDummyValue(attrInfo, dimensions, languages);
-        }
+    private static SchemaKind PromptForSchemaKind() => PromptForEnum<SchemaKind>("Select schema kind:");
 
-        result["Values"] = values;
-
-        return result;
+    private static string GetSchemaName(ItemType type, SchemaKind schema)
+    {
+        var typeName = type == ItemType.Product ? "Product" : "Variant";
+        var schemaName = schema == SchemaKind.Reference ? "Reference" : "Value";
+        return $"{typeName}WithGlobalList{schemaName}";
     }
 }

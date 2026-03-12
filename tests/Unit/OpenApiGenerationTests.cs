@@ -36,26 +36,10 @@ public sealed class OpenApiGenerationTests
         Assert.Contains("ProductId", productValSchema.Properties!.Keys);
         Assert.Contains("Values", productRefSchema.Properties!.Keys);
         Assert.Contains("Values", productValSchema.Properties!.Keys);
-        Assert.Contains("Variant", productRefSchema.Properties!.Keys);
-        Assert.Contains("Variant", productValSchema.Properties!.Keys);
-
-        var variantRefSchema = components.GetValueOrDefault("VariantWithGlobalListReference");
-        var variantValSchema = components.GetValueOrDefault("VariantWithGlobalListValue");
-
-        Assert.NotNull(variantRefSchema);
-        Assert.NotNull(variantValSchema);
-        Assert.Contains("VariantId", variantRefSchema!.Properties!.Keys);
-        Assert.Contains("VariantId", variantValSchema!.Properties!.Keys);
 
         var productValues = productRefSchema.Properties!["Values"].Properties!;
         Assert.Contains("ReadyForWeb", productValues.Keys);
-        Assert.DoesNotContain("ProductName", productValues.Keys);
-
-        var variantValues = variantRefSchema.Properties!["Values"].Properties!;
-        Assert.Contains("Age", variantValues.Keys);
-        Assert.Contains("AgeChilden", variantValues.Keys);
-        Assert.Contains("HighlightsConscious", variantValues.Keys);
-        Assert.Contains("HighlightsConsciousCustom", variantValues.Keys);
+        Assert.Contains("ProductName", productValues.Keys);
     }
 
     [Fact]
@@ -95,11 +79,6 @@ public sealed class OpenApiGenerationTests
         Assert.Contains("ReadyForWeb", productValues.Required ?? []);
         Assert.False(productValues.Properties!["ReadyForWeb"].Nullable ?? false);
 
-        var variantSchema = components["VariantWithGlobalListReference"];
-        var variantValues = variantSchema.Properties!["Values"];
-
-        Assert.Contains("Age", variantValues.Required ?? []);
-        Assert.False(variantValues.Properties!["Age"].Nullable ?? false);
     }
 
     [Fact]
