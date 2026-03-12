@@ -5,7 +5,7 @@ A CLI tool that generates OpenAPI schemas from Struct product structures.
 ## What It Does
 
 1. Fetches available product structures from Struct API (`/v1/productstructures`)
-2. Allows selection of product structures via interactive CLI prompt
+2. Allows selection of a product structure via interactive CLI prompt
 3. Fetches selected product structure details (`/v1/productstructures/{uid}`)
 4. Extracts and fetches all attributes (`/v1/attributes/{uid}`)
 5. Generates OpenAPI 3.0 schemas with support for:
@@ -29,7 +29,7 @@ src/
     │   ├── GenerateCommand.cs        # CLI generate command
     │   └── GenerateExampleCommand.cs # CLI example command
     ├── Services/ConfigurationService.cs
-    └── Struct.OpenApiGenerator.csproj
+    └── Struct.OpenApi.Generator.csproj
 ```
 
 ## Configuration
@@ -48,7 +48,7 @@ Create `appsettings.json` in `src/Generator`:
 ## Running
 
 ```bash
-dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- <command>
+dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- <command> [args]
 ```
 
 You can still run from inside `src/Generator` if preferred.
@@ -68,7 +68,7 @@ The published output includes `appsettings.json`, so the executable has the requ
 Generates OpenAPI schemas from product structures.
 
 ```bash
-dotnet run -- generate
+dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- generate
 ```
 
 Options:
@@ -79,12 +79,17 @@ Options:
 Generates example JSON with dummy data for a product or variant.
 
 ```bash
-dotnet run -- example product
-dotnet run -- example variant
+dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- example
+dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- example product reference
+dotnet run --project src/Generator/Struct.OpenApi.Generator.csproj -- example variant value
 ```
 
+Arguments:
+- `[TYPE]` - `product` or `variant` (optional; prompted if omitted)
+- `[SCHEMA]` - `reference` or `value` (optional; prompted if omitted)
+
 Options:
-- `--output <path>` - Output file path (default: `example-{type}.json`)
+- `--output <path>` - Output file path (default: `example-{type}-{schema}.json`)
 
 The example command fetches dimensions and languages from the API and generates dummy data for all segments.
 
